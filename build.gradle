@@ -1,4 +1,7 @@
-apply plugin: "java"
+plugins{
+    id 'java'
+    id 'maven-publish'
+}
 
 version '1.0'
 
@@ -46,6 +49,17 @@ configurations.all{
         }
     }
 }
+
+configure(allprojects){
+    apply plugin: 'java'
+    apply plugin: 'maven-publish'
+
+    group = 'com.github.MEEPofFaith.BottomLeftUILib'
+    publishing.publications.register('maven', MavenPublication){
+        from components.java
+    }
+}
+
 
 task jarAndroid{
     dependsOn "jar"
