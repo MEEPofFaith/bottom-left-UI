@@ -41,7 +41,7 @@ public class BLSetup{
             next();
 
             all.table(Tex.buttonEdge3, t -> {
-                HoldImageButton b = new HoldImageButton(Icon.rotate, BLStyles.bluiHoldImageStyle);
+                HoldImageButton b = new HoldImageButton(Icon.refresh, BLStyles.bluiHoldImageStyle);
                 b.clicked(() -> {
                     if(folded){
                         folded = false;
@@ -57,7 +57,7 @@ public class BLSetup{
                 b.resizeImage(BLVars.iconSize);
 
                 b.getStyle().imageHeld = Icon.leftOpen;
-                b.update(() -> b.getStyle().imageUp = folded ? Icon.rightOpen : Icon.rotate);
+                b.update(() -> b.getStyle().imageUp = folded ? Icon.rightOpen : Icon.refresh);
 
                 t.add(b);
             });
