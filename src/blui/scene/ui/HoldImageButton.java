@@ -13,6 +13,7 @@ import blui.*;
 
 public class HoldImageButton extends ImageButton{
     private Runnable held = () -> {};
+    public Boolp canHold = () -> true;
     private boolean heldAct;
     private HoldImageButtonStyle style;
     private boolean repeat = false;
@@ -68,13 +69,13 @@ public class HoldImageButton extends ImageButton{
         this(new HoldImageButtonStyle(null, null, null, imageUp, imageDown, imageChecked, imageHeld));
     }
 
-    public ImageButtonStyle getStyle(){
+    public HoldImageButtonStyle getStyle(){
         return style;
     }
 
     public void setStyle(Button.ButtonStyle style){
         if(!(style instanceof HoldImageButtonStyle s)){
-            throw new IllegalArgumentException("style must be an ImageButtonStyle.");
+            throw new IllegalArgumentException("style must be a HoldImageButtonStyle.");
         }else{
             super.setStyle(style);
             this.style = s;
@@ -86,6 +87,11 @@ public class HoldImageButton extends ImageButton{
 
     public Element held(Runnable r){
         held = r;
+        return this;
+    }
+
+    public Element canHold(Boolp canHold){
+        this.canHold = canHold;
         return this;
     }
 
@@ -144,7 +150,7 @@ public class HoldImageButton extends ImageButton{
     public void act(float delta){
         super.act(delta);
 
-        if(isPressed()){
+        if(isPressed() && canHold.get()){
             BLVars.pressTimer += Time.delta;
             if(BLVars.pressTimer > BLVars.longPress && (repeat || !heldAct)){
                 heldAct = true;
