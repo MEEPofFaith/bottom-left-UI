@@ -10,15 +10,10 @@ import mindustry.ui.dialogs.*;
 public class BottomLeftUI extends Mod{
 
     public BottomLeftUI(){
-
     }
 
     @Override
     public void init(){
-        BLSetup.addTable(t -> t.label(() -> "test1").wrapLabel(false));
-        BLSetup.addTable(t -> t.label(() -> "test2222222").wrapLabel(false));
-        BLSetup.addTable(t -> t.label(() -> "test3333333333333333333").wrapLabel(false));
-
         BLSetup.init();
     }
 }
