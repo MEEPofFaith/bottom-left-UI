@@ -167,7 +167,6 @@ public class HoldImageButton extends ImageButton{
         if(hasReset) return;
 
         released(() -> {
-            Log.info("reset");
             heldAct = false;
             BLVars.pressTimer = 0;
         });
