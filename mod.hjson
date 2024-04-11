@@ -1,0 +1,25 @@
+#the mod name as displayed in-game
+displayName: "Bottom Left UI Lib"
+
+#the internal name of your mod
+name: "bl-ui-lib"
+
+#your name
+author: "MEEPofFaith"
+
+#the fully qualified main class of the mod
+main: "blui.BottomLeftUI"
+
+#the mod description as seen in the mod dialog
+description: "Solves the biggest territory war in all of Mindustry Modding: Putting UI in the bottom-left corner"
+
+#the mod version
+version: 0
+
+#the minimum game build required to run this mod
+minGameVersion: 146
+
+#this is a java mod
+java: true
+
+hidden: true
