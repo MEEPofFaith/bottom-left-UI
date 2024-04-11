@@ -66,15 +66,17 @@ public class BLSetup{
                 b.update(() -> b.getStyle().imageUp = folded ? Icon.rightOpen : Icon.refresh);
 
                 t.add(b);
-            });
+            }).update(t -> checkVisibility());
             ui.hudGroup.addChild(all);
             offset(all);
 
-            Events.on(WorldLoadEndEvent.class, e -> {
-                if(!tables.get(current).visible()){
-                    next();
-                }
-            });
+            Events.on(WorldLoadEndEvent.class, e -> checkVisibility());
+        }
+    }
+
+    private static void checkVisibility(){
+        if(!tables.get(current).visible()){
+            next();
         }
     }
 
