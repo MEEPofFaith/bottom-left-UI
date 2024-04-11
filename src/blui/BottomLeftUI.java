@@ -14,6 +14,6 @@ public class BottomLeftUI extends Mod{
 
     @Override
     public void init(){
-        BLSetup.init();
+        Core.app.post(BLSetup::init); //Wait until mods add tables
     }
 }
