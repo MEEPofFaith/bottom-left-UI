@@ -25,6 +25,10 @@ public class BLSetup{
         tables.add(new TableData(t));
     }
 
+    public static void addTable(Cons<Table> t, Boolp visible){
+        tables.add(new TableData(t, visible));
+    }
+
     public static void offset(Table table){
         table.moveBy(0f, Scl.scl(mobile ? 46f : 0f)); //Account for command mode button on mobile.
     }
