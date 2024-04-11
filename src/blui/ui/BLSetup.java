@@ -64,6 +64,7 @@ public class BLSetup{
 
                 t.add(b);
             }).update(t -> checkVisibility());
+            all.visible(() -> !(!ui.hudfrag.shown || ui.minimapfrag.shown()));
             ui.hudGroup.addChild(all);
             offset(all);
 
@@ -82,6 +83,7 @@ public class BLSetup{
         TableData table = tables.get(current);
         if(table.visible()){
             clear();
+            cont.defaults().bottom().left();
             table.table.get(cont);
         }else{
             next();
