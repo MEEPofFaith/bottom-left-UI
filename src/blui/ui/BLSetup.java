@@ -1,11 +1,13 @@
 package blui.ui;
 
+import arc.*;
 import arc.func.*;
 import arc.scene.ui.layout.*;
 import arc.util.*;
 import blui.*;
 import blui.scene.ui.*;
 import mindustry.*;
+import mindustry.game.EventType.*;
 import mindustry.gen.*;
 import mindustry.mod.Mods.*;
 
@@ -67,13 +69,19 @@ public class BLSetup{
             });
             ui.hudGroup.addChild(all);
             offset(all);
+
+            Events.on(WorldLoadEndEvent.class, e -> {
+                if(!tables.get(current).visible()){
+                    next();
+                }
+            });
         }
     }
 
     private static void next(){
         current = (current + 1) % tables.size();
         TableData table = tables.get(current);
-        if(table.visible == null || table.visible.get()){
+        if(table.visible()){
             clear();
             table.table.get(cont);
         }else{
@@ -97,6 +105,10 @@ public class BLSetup{
 
         public TableData(Cons<Table> table){
             this.table = table;
+        }
+
+        public boolean visible(){
+            return visible == null || visible.get();
         }
     }
 }
