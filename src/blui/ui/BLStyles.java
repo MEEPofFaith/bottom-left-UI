@@ -3,7 +3,6 @@ package blui.ui;
 import arc.*;
 import arc.graphics.*;
 import arc.scene.ui.ImageButton.*;
-import arc.util.*;
 import blui.scene.ui.HoldImageButton.*;
 import mindustry.ui.*;
 

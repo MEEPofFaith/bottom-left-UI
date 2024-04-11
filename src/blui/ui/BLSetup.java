@@ -6,15 +6,12 @@ import arc.scene.ui.layout.*;
 import arc.util.*;
 import blui.*;
 import blui.scene.ui.*;
-import mindustry.*;
 import mindustry.game.EventType.*;
 import mindustry.gen.*;
-import mindustry.mod.Mods.*;
 
 import java.util.*;
 
-import static mindustry.Vars.mobile;
-import static mindustry.Vars.ui;
+import static mindustry.Vars.*;
 
 public class BLSetup{
     private static ArrayList<TableData> tables = new ArrayList<>();
