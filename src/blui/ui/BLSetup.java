@@ -13,9 +13,9 @@ import mindustry.gen.*;
 import static mindustry.Vars.*;
 
 public class BLSetup{
-    private static Seq<TableData> tables = new Seq<>();
+    private static final Seq<TableData> tables = new Seq<>();
+    private static final Table cont = new Table();
     private static boolean init;
-    private static Table cont = new Table();
     private static int current = -1;
     private static boolean folded;
 
