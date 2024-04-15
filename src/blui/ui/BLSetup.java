@@ -62,8 +62,10 @@ public class BLSetup{
                 b.update(() -> b.getStyle().imageUp = folded ? Icon.rightOpen : Icon.refresh);
 
                 t.add(b);
-            }).update(t -> checkVisibility());
-            all.visible(() -> !(!ui.hudfrag.shown || ui.minimapfrag.shown()));
+            }).update(t -> {
+                if(visible()) checkVisibility();
+            });
+            all.visible(BLSetup::visible);
             ui.hudGroup.addChild(all);
             offset(all);
 
@@ -71,10 +73,13 @@ public class BLSetup{
         }
     }
 
+    /** If current table is not visible, switch to next one. */
     private static void checkVisibility(){
-        if(!tables.get(current).visible()){
-            next();
-        }
+        if(!tables.get(current).visible()) next();
+    }
+
+    private static boolean visible(){
+        return !(!ui.hudfrag.shown || ui.minimapfrag.shown()) && tables.contains(t -> t.visible.get());
     }
 
     private static void next(){
