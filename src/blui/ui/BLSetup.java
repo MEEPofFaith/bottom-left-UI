@@ -3,18 +3,17 @@ package blui.ui;
 import arc.*;
 import arc.func.*;
 import arc.scene.ui.layout.*;
+import arc.struct.*;
 import arc.util.*;
 import blui.*;
 import blui.scene.ui.*;
 import mindustry.game.EventType.*;
 import mindustry.gen.*;
 
-import java.util.*;
-
 import static mindustry.Vars.*;
 
 public class BLSetup{
-    private static ArrayList<TableData> tables = new ArrayList<>();
+    private static Seq<TableData> tables = new Seq<>();
     private static boolean init;
     private static Table cont = new Table();
     private static int current = -1;
@@ -79,7 +78,7 @@ public class BLSetup{
     }
 
     private static void next(){
-        current = (current + 1) % tables.size();
+        current = (current + 1) % tables.size;
         TableData table = tables.get(current);
         if(table.visible()){
             clear();
