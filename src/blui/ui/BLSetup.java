@@ -41,6 +41,7 @@ public class BLSetup{
             BLStyles.init();
 
             Table all = new Table().bottom().left();
+            all.name = "blui";
             all.setOrigin(Align.bottomLeft);
             all.defaults().bottom().left();
             all.add(cont);
@@ -68,6 +69,7 @@ public class BLSetup{
                 t.add(b);
             }).update(t -> checkVisibility());
             all.visible(BLSetup::visible);
+
             ui.hudGroup.addChild(all);
             offset(all);
 
