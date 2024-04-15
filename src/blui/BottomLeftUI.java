@@ -4,9 +4,7 @@ import arc.*;
 import arc.util.*;
 import blui.ui.*;
 import mindustry.*;
-import mindustry.game.EventType.*;
 import mindustry.mod.*;
-import mindustry.ui.dialogs.*;
 import mindustry.world.meta.*;
 
 public class BottomLeftUI extends Mod{

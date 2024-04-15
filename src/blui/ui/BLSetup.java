@@ -27,8 +27,12 @@ public class BLSetup{
         tables.add(new TableData(t, visible));
     }
 
+    /**
+     * Offsets the position of a table in the bottom-left corner of the screen
+     * to account for the command mode button on mobile being there.
+     */
     public static void offset(Table table){
-        table.moveBy(0f, Scl.scl(mobile ? 46f : 0f)); //Account for command mode button on mobile.
+        if(mobile) table.moveBy(0f, Scl.scl(46f));
     }
 
     public static void init(){
@@ -62,9 +66,7 @@ public class BLSetup{
                 b.update(() -> b.getStyle().imageUp = folded ? Icon.rightOpen : Icon.refresh);
 
                 t.add(b);
-            }).update(t -> {
-                if(visible()) checkVisibility();
-            });
+            }).update(t -> checkVisibility());
             all.visible(BLSetup::visible);
             ui.hudGroup.addChild(all);
             offset(all);
@@ -75,11 +77,15 @@ public class BLSetup{
 
     /** If current table is not visible, switch to next one. */
     private static void checkVisibility(){
-        if(!tables.get(current).visible()) next();
+        if(!tables.get(current).visible() && hasVisible()) next();
     }
 
     private static boolean visible(){
-        return !(!ui.hudfrag.shown || ui.minimapfrag.shown()) && tables.contains(t -> t.visible.get());
+        return ui.hudfrag.shown && !ui.minimapfrag.shown() && hasVisible();
+    }
+
+    private static boolean hasVisible(){
+        return tables.contains(TableData::visible);
     }
 
     private static void next(){
