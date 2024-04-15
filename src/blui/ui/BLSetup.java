@@ -71,7 +71,9 @@ public class BLSetup{
             ui.hudGroup.addChild(all);
             offset(all);
 
-            Events.on(WorldLoadEndEvent.class, e -> checkVisibility());
+            Events.on(WorldLoadEndEvent.class, e -> {
+                if(visible()) checkVisibility();
+            });
         }
     }
 
