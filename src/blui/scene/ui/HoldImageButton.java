@@ -99,7 +99,7 @@ public class HoldImageButton extends ImageButton{
         ClickListener click;
         addListener(click = new ClickListener(){
             public void clicked(InputEvent event, float x, float y){
-                if(runner != null && !heldAct){
+                if(runner != null && !isDisabled() && !heldAct){
                     runner.get(this);
                 }
             }
@@ -150,7 +150,7 @@ public class HoldImageButton extends ImageButton{
     public void act(float delta){
         super.act(delta);
 
-        if(isPressed() && canHold.get()){
+        if(isPressed() && !isDisabled() && canHold.get()){
             BLVars.pressTimer += Time.delta;
             if(BLVars.pressTimer > BLVars.longPress && (repeat || !heldAct)){
                 heldAct = true;
