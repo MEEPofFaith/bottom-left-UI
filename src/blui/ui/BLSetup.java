@@ -81,7 +81,7 @@ public class BLSetup{
 
     /** If current table is not visible, switch to next one. */
     private static void checkVisibility(){
-        if(!tables.get(current).visible() && hasVisible()) next();
+        if(tables.any() && !tables.get(current).visible() && hasVisible()) next();
     }
 
     private static boolean visible(){
@@ -93,6 +93,8 @@ public class BLSetup{
     }
 
     private static void next(){
+        if(tables.isEmpty()) return;
+
         current = (current + 1) % tables.size;
         TableData table = tables.get(current);
         if(table.visible()){
