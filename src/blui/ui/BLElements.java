@@ -21,7 +21,9 @@ public class BLElements{
         TextField f = t.add(field).left().padLeft(6f).width(BLVars.fieldWidth).get();
 
         if(tooltip != null){
-            Tooltip tip = new Tooltip(to -> to.background(Tex.button).add(tooltip));
+            Tooltip tip = new Tooltip(to -> to.background(Tex.button).add(tooltip)){{
+                allowMobile = true;
+            }};
             tab.addListener(tip);
             sl.addListener(tip);
             f.addListener(tip);
@@ -96,10 +98,14 @@ public class BLElements{
     }
 
     public static void boxTooltip(Element e, Prov<CharSequence> text){
-        e.addListener(new Tooltip(t -> t.background(Tex.button).label(text)));
+        e.addListener(new Tooltip(t -> t.background(Tex.button).label(text)){{
+            allowMobile = true;
+        }});
     }
 
     public static void boxTooltip(Element e, String text){
-        e.addListener(new Tooltip(t -> t.background(Tex.button).add(text)));
+        e.addListener(new Tooltip(t -> t.background(Tex.button).add(text)){{
+            allowMobile = true;
+        }});
     }
 }
