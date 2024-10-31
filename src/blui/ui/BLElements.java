@@ -27,7 +27,7 @@ public class BLElements{
         TextField f = t.add(field).left().padLeft(6f).width(BLVars.fieldWidth).get();
 
         if(tooltip != null){
-            Tooltip tip = BLElements.tooltip(tooltip);
+            Tooltip tip = baseTooltip(tt -> tt.background(Tex.button).add(tooltip));
             tab.addListener(tip);
             sl.addListener(tip);
             f.addListener(tip);
@@ -101,15 +101,27 @@ public class BLElements{
         divider(t, label, color, 1);
     }
 
+    /** Adds a boxed tooltip, similar to in the Database. */
     public static void boxTooltip(Element e, Prov<CharSequence> text){
         e.addListener(baseTooltip(t -> t.background(Tex.button).label(text)));
     }
 
+    /** Adds a boxed tooltip, similar to in the Database. */
     public static void boxTooltip(Element e, String text){
         e.addListener(baseTooltip(t -> t.background(Tex.button).add(text)));
     }
 
-    /** Yoink from {@link UI#addDescTooltip(Element, String)} */
+    /** Adds a flat tooltip, similar to setting descriptions. */
+    public static void flatTooltip(Element e, Prov<CharSequence> text){
+        e.addListener(baseTooltip(t -> t.background(Styles.black8).margin(4f).label(text)));
+    }
+
+    /** Adds a flat tooltip, similar to setting descriptions. */
+    public static void flatTooltip(Element e, String text){
+        e.addListener(baseTooltip(t -> t.background(Styles.black8).margin(4f).add(text)));
+    }
+
+    /** Creates a tooltip. Snaps to corner of parent element. */
     public static Tooltip baseTooltip(Cons<Table> content){
         return new Tooltip(content){
             {
