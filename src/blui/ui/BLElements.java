@@ -110,7 +110,7 @@ public class BLElements{
     }
 
     /** Yoink from {@link UI#addDescTooltip(Element, String)} */
-    private static Tooltip baseTooltip(Cons<Table> content){
+    public static Tooltip baseTooltip(Cons<Table> content){
         return new Tooltip(content){
             {
                 allowMobile = true;
