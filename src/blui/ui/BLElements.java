@@ -13,6 +13,7 @@ import arc.scene.ui.layout.*;
 import arc.util.*;
 import blui.*;
 import mindustry.core.*;
+import mindustry.gen.*;
 import mindustry.ui.*;
 
 import static mindustry.Vars.*;
@@ -110,11 +111,11 @@ public class BLElements{
     }
 
     public static Tooltip tooltip(Prov<CharSequence> text){
-        return baseTooltip(t -> t.background(Styles.black8).margin(4f).label(text).color(Color.lightGray));
+        return baseTooltip(t -> t.background(Tex.button).label(text));
     }
 
     public static Tooltip tooltip(String text){
-        return baseTooltip(t -> t.background(Styles.black8).margin(4f).add(text).color(Color.lightGray));
+        return baseTooltip(t -> t.background(Tex.button).add(text));
     }
 
     /** Yoink from {@link UI#addDescTooltip(Element, String)} */
