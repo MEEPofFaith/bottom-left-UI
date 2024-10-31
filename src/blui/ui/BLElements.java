@@ -102,19 +102,11 @@ public class BLElements{
     }
 
     public static void boxTooltip(Element e, Prov<CharSequence> text){
-        e.addListener(tooltip(text));
+        e.addListener(baseTooltip(t -> t.background(Tex.button).label(text)));
     }
 
     public static void boxTooltip(Element e, String text){
-        e.addListener(tooltip(text));
-    }
-
-    public static Tooltip tooltip(Prov<CharSequence> text){
-        return baseTooltip(t -> t.background(Tex.button).label(text));
-    }
-
-    public static Tooltip tooltip(String text){
-        return baseTooltip(t -> t.background(Tex.button).add(text));
+        e.addListener(baseTooltip(t -> t.background(Tex.button).add(text)));
     }
 
     /** Yoink from {@link UI#addDescTooltip(Element, String)} */
