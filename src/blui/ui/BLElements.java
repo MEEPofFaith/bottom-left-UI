@@ -64,7 +64,7 @@ public class BLElements{
                 l.setColor(b.isDisabled() ? Color.lightGray : Color.white);
             });
         }
-        if(tooltip != null) ui.addDescTooltip(b, tooltip);
+        if(tooltip != null) boxTooltip(b, tooltip);
 
         return bCell;
     }
@@ -105,7 +105,6 @@ public class BLElements{
         e.addListener(tooltip(text));
     }
 
-    /** @deprecated Just use Vars.ui.addDescTooltip */
     public static void boxTooltip(Element e, String text){
         e.addListener(tooltip(text));
     }
