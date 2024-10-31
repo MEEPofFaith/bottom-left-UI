@@ -133,7 +133,7 @@ public class BLElements{
 
                 float pY = offBottom ? pos.y + element.getHeight() : pos.y;
                 container.setPosition(pos.x, pY, (offBottom ? Align.bottom : Align.top) | Align.left);
-                container.setOrigin(0, offBottom ? element.getHeight() : 0);
+                container.setOrigin(0, offBottom ? 0 : element.getHeight());
             }
         };
     }
