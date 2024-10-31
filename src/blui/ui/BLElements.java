@@ -1,5 +1,6 @@
 package blui.ui;
 
+import arc.*;
 import arc.func.*;
 import arc.graphics.*;
 import arc.math.geom.*;
@@ -105,29 +106,20 @@ public class BLElements{
 
     /** @deprecated Just use Vars.ui.addDescTooltip */
     public static void boxTooltip(Element e, String text){
-        ui.addDescTooltip(e, text);
+        e.addListener(tooltip(text));
     }
 
-    /** Yoink from {@link UI#addDescTooltip(Element, String)} */
     public static Tooltip tooltip(Prov<CharSequence> text){
-        return new Tooltip(t -> t.background(Styles.black8).margin(4f).label(text).color(Color.lightGray)){
-            {
-                allowMobile = true;
-            }
-            @Override
-            protected void setContainerPosition(Element element, float x, float y){
-                this.targetActor = element;
-                Vec2 pos = element.localToStageCoordinates(Tmp.v1.set(0, 0));
-                container.pack();
-                container.setPosition(pos.x, pos.y, Align.topLeft);
-                container.setOrigin(0, element.getHeight());
-            }
-        };
+        return baseTooltip(t -> t.background(Styles.black8).margin(4f).label(text).color(Color.lightGray));
+    }
+
+    public static Tooltip tooltip(String text){
+        return baseTooltip(t -> t.background(Styles.black8).margin(4f).add(text).color(Color.lightGray));
     }
 
     /** Yoink from {@link UI#addDescTooltip(Element, String)} */
-    public static Tooltip tooltip(String text){
-        return new Tooltip(t -> t.background(Styles.black8).margin(4f).add(text).color(Color.lightGray)){
+    private static Tooltip baseTooltip(Cons<Table> content){
+        return new Tooltip(content){
             {
                 allowMobile = true;
             }
@@ -136,8 +128,12 @@ public class BLElements{
                 this.targetActor = element;
                 Vec2 pos = element.localToStageCoordinates(Tmp.v1.set(0, 0));
                 container.pack();
-                container.setPosition(pos.x, pos.y, Align.topLeft);
-                container.setOrigin(0, element.getHeight());
+
+                boolean offBottom = pos.y - element.getHeight() < 0;
+
+                float pY = offBottom ? pos.y + element.getHeight() : pos.y;
+                container.setPosition(pos.x, pY, (offBottom ? Align.bottom : Align.top) | Align.left);
+                container.setOrigin(0, offBottom ? element.getHeight() : 0);
             }
         };
     }
