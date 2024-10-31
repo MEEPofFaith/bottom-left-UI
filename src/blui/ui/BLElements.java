@@ -1,6 +1,5 @@
 package blui.ui;
 
-import arc.*;
 import arc.func.*;
 import arc.graphics.*;
 import arc.math.geom.*;
@@ -12,11 +11,10 @@ import arc.scene.ui.TextField.*;
 import arc.scene.ui.layout.*;
 import arc.util.*;
 import blui.*;
-import mindustry.core.*;
 import mindustry.gen.*;
 import mindustry.ui.*;
 
-import static mindustry.Vars.*;
+import static arc.Core.*;
 
 public class BLElements{
     public static Element[] sliderSet(Table t, Cons<String> changed, Prov<String> fieldText, TextFieldFilter filter, TextFieldValidator valid, float min, float max, float step, float def, Cons2<Float, TextField> sliderChanged, String title, String tooltip){
@@ -133,11 +131,13 @@ public class BLElements{
                 Vec2 pos = element.localToStageCoordinates(Tmp.v1.set(0, 0));
                 container.pack();
 
-                boolean offBottom = pos.y - element.getHeight() < 0;
+                boolean offBottom = pos.y - container.getHeight() < 0;
+                boolean offRight = pos.x + container.getWidth() > graphics.getWidth();
 
                 float pY = offBottom ? pos.y + element.getHeight() : pos.y;
-                container.setPosition(pos.x, pY, (offBottom ? Align.bottom : Align.top) | Align.left);
-                container.setOrigin(0, offBottom ? 0 : element.getHeight());
+                float pX = offRight ? pos.x + element.getWidth() : pos.x;
+                container.setPosition(pX, pY, (offBottom ? Align.bottom : Align.top) | (offRight ? Align.right : Align.left));
+                container.setOrigin(offRight ? container.getWidth() : 0, offBottom ? 0 : container.getHeight());
             }
         };
     }
