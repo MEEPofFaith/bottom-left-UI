@@ -2,6 +2,8 @@
 A Mindustry libary mod that solves the biggest territory war in Mindustry modding:
 Adding UI to the bottom-left corner of the screen.
 
+Ok, well, it's not really a big war anymore apparently but this still exists just in case.
+
 ## How to use
 
 Simply call `BLSetup.addTable` to add another table to the bottom-left corner UI.
