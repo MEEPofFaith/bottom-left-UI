@@ -27,7 +27,7 @@ public class BLSetup{
 
         //Already added to UI.
         Element e = ui.hudGroup.find("blui");
-        if(e.getClass().getName().contains("BLUITable")){
+        if(e != null && e.getClass().getName().contains("BLUITable")){
             return bluiTable = e;
         }
 
