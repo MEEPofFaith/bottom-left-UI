@@ -22,7 +22,6 @@ public class BLSetup{
     private static Element getBluiTable(){
         if(bluiTable != null) return bluiTable;
 
-        BLVars.init();
         BLStyles.init();
 
         //Already added to UI.
@@ -30,9 +29,6 @@ public class BLSetup{
         if(e != null && e.getClass().getName().contains("BLUITable")){
             return bluiTable = e;
         }
-
-        //Create for the first time. Also add setting here.
-        ui.settings.game.sliderPref("blui-longpress", 30, 15, 180, 15, s -> Strings.autoFixed(s / 60f, 2) + " " + StatUnit.seconds.localized());
 
         BLUITable all = new BLUITable();
         all.bottom().left();
