@@ -40,24 +40,27 @@ public class BLSetup{
         all.setOrigin(Align.bottomLeft);
         ui.hudGroup.addChild(all);
 
-        settings.put("blui-class", BLUITable.class.getName());
+        settings.put("blui-table-class", BLUITable.class.getName());
 
         return bluiTable = all;
     }
 
     public static void addTable(Cons<Table> t){
-        addTable(new TableData(t));
+        addTable(t, null);
     }
 
     public static void addTable(Cons<Table> t, Boolp visible){
-        addTable(new TableData(t, visible));
-    }
-
-    private static void addTable(TableData data){
         Element bluiTable = getBluiTable();
-        Class<?> bluiTableClass = SafeReflect.clazz(settings.getString("blui-class"));
-        Seq<TableData> tables = SafeReflect.get(bluiTableClass, bluiTable, "tables");
-        if(tables != null) tables.add(data);
+        Class<?> bluiTableClass = SafeReflect.clazz(settings.getString("blui-table-class"));
+
+        Seq<Cons<Table>> tables = SafeReflect.get(bluiTableClass, bluiTable, "tables");
+        if(tables == null) return;
+        tables.add(t);
+
+        if(visible == null) return;
+        ObjectMap<Cons<Table>, Boolp> visibles = SafeReflect.get(bluiTableClass, bluiTable, "visibles");
+        if(visibles == null) return;
+        visibles.put(t, visible);
     }
 
     /**
@@ -69,7 +72,8 @@ public class BLSetup{
     }
 
     private static class BLUITable extends Table{
-        private final Seq<TableData> tables = new Seq<>();
+        private final Seq<Cons<Table>> tables = new Seq<>();
+        private final ObjectMap<Cons<Table>, Boolp> visibles = new ObjectMap<>();
         private final Table cont = new Table();
         private int current = -1;
         private boolean folded;
@@ -111,11 +115,11 @@ public class BLSetup{
             if(tables.isEmpty()) return;
 
             current = (current + 1) % tables.size;
-            TableData table = tables.get(current);
-            if(table.visible()){
+            Cons<Table> table = tables.get(current);
+            if(tableVisible(table)){
                 clearTable();
                 cont.defaults().bottom().left();
-                table.table.get(cont);
+                table.get(cont);
             }else{
                 next();
             }
@@ -128,29 +132,15 @@ public class BLSetup{
 
         /** If current table is not visible, switch to next one. */
         private void checkVisibility(){
-            if(tables.any() && !tables.get(current).visible() && hasVisible()) next();
+            if(tables.any() && !tableVisible(tables.get(current)) && hasVisible()) next();
         }
 
         private boolean hasVisible(){
-            return tables.contains(TableData::visible);
-        }
-    }
-
-    private static class TableData{
-        public Boolp visible;
-        public Cons<Table> table;
-
-        public TableData(Cons<Table> table, Boolp visible){
-            this.table = table;
-            this.visible = visible;
+            return tables.contains(this::tableVisible);
         }
 
-        public TableData(Cons<Table> table){
-            this.table = table;
-        }
-
-        public boolean visible(){
-            return visible == null || visible.get();
+        private boolean tableVisible(Cons<Table> table){
+            return !visibles.containsKey(table) || visibles.get(table).get();
         }
     }
 }
