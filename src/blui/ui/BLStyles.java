@@ -13,7 +13,7 @@ public class BLStyles{
         defaultHoldi,
         bluiHoldImageStyle;
 
-    protected static void init(){
+    public static void init(){
         bluiImageStyle = new ImageButtonStyle(Styles.logici){{
             down = Styles.flatDown;
             over = Styles.flatOver;
