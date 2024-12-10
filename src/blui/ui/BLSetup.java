@@ -34,7 +34,6 @@ public class BLSetup{
         all.bottom().left();
         all.name = "blui";
         all.setOrigin(Align.bottomLeft);
-        all.defaults().bottom().left();
         ui.hudGroup.addChild(all);
 
         return bluiTable = all;
@@ -63,6 +62,8 @@ public class BLSetup{
         private boolean folded;
 
         public BLUITable(){
+            defaults().bottom().left();
+
             add(cont);
             table(Tex.buttonEdge3, t -> {
                 HoldImageButton b = new HoldImageButton(Icon.refresh, BLStyles.bluiHoldImageStyle);
@@ -87,7 +88,10 @@ public class BLSetup{
             }).update(t -> checkVisibility());
             visible(() -> ui.hudfrag.shown && !ui.minimapfrag.shown() && hasVisible());
 
-            Events.on(ClientLoadEvent.class, e -> next());
+            Events.on(ClientLoadEvent.class, e -> {
+                next();
+                offset(this);
+            });
         }
 
         private void next(){
