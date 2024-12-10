@@ -14,11 +14,12 @@ import mindustry.gen.*;
 import mindustry.world.meta.*;
 
 import static mindustry.Vars.*;
+import static arc.Core.*;
 
 public class BLSetup{
-    private static BLUITable bluiTable;
+    private static Element bluiTable;
 
-    private static BLUITable getBluiTable(){
+    private static Element getBluiTable(){
         if(bluiTable != null) return bluiTable;
 
         BLVars.init();
@@ -26,12 +27,12 @@ public class BLSetup{
 
         //Already added to UI.
         Element e = ui.hudGroup.find("blui");
-        if(e instanceof BLUITable t){
-            return bluiTable = t;
+        if(e.getClass().getName().contains("BLUITable")){
+            return bluiTable = e;
         }
 
         //Create for the first time. Also add setting here.
-        Vars.ui.settings.game.sliderPref("blui-longpress", 30, 15, 180, 15, s -> Strings.autoFixed(s / 60f, 2) + " " + StatUnit.seconds.localized());
+        ui.settings.game.sliderPref("blui-longpress", 30, 15, 180, 15, s -> Strings.autoFixed(s / 60f, 2) + " " + StatUnit.seconds.localized());
 
         BLUITable all = new BLUITable();
         all.bottom().left();
@@ -39,15 +40,24 @@ public class BLSetup{
         all.setOrigin(Align.bottomLeft);
         ui.hudGroup.addChild(all);
 
+        settings.put("blui-class", BLUITable.class.getName());
+
         return bluiTable = all;
     }
 
     public static void addTable(Cons<Table> t){
-        getBluiTable().tables.add(new TableData(t));
+        addTable(new TableData(t));
     }
 
     public static void addTable(Cons<Table> t, Boolp visible){
-        getBluiTable().tables.add(new TableData(t, visible));
+        addTable(new TableData(t, visible));
+    }
+
+    private static void addTable(TableData data){
+        Element bluiTable = getBluiTable();
+        Class<?> bluiTableClass = SafeReflect.clazz(settings.getString("blui-class"));
+        Seq<TableData> tables = SafeReflect.get(bluiTableClass, bluiTable, "tables");
+        if(tables != null) tables.add(data);
     }
 
     /**
