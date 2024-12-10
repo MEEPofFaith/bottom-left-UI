@@ -1,5 +1,6 @@
 package blui.ui;
 
+import arc.*;
 import arc.func.*;
 import arc.scene.*;
 import arc.scene.ui.layout.*;
@@ -8,6 +9,7 @@ import arc.util.*;
 import blui.*;
 import blui.scene.ui.*;
 import mindustry.*;
+import mindustry.game.EventType.*;
 import mindustry.gen.*;
 import mindustry.world.meta.*;
 
@@ -84,6 +86,8 @@ public class BLSetup{
                 t.add(b);
             }).update(t -> checkVisibility());
             visible(() -> ui.hudfrag.shown && !ui.minimapfrag.shown() && hasVisible());
+
+            Events.on(ClientLoadEvent.class, e -> next());
         }
 
         private void next(){
