@@ -21,6 +21,9 @@ public class BLSetup{
     private static BLUITable getBluiTable(){
         if(bluiTable != null) return bluiTable;
 
+        BLVars.init();
+        BLStyles.init();
+
         //Already added to UI.
         Element e = ui.hudGroup.find("blui");
         if(e instanceof BLUITable t){
